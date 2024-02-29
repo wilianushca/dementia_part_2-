@@ -12,7 +12,6 @@ data = load_model()
 regressor_loaded = data["model"]
 le_heartrate = data["le_heartrate"]
 le_bloodoxygen = data["le_bloodoxygen"]
-le_bodytemp = data["le_bodytemp"]
 le_weight = data["le_weight"]
 le_MRI = data["le_MRI"]
 le_age = data["le_age"]
@@ -106,15 +105,13 @@ def show_predict_page():
     bloodoxy = st.slider("Blood Oxygen Level", 0, 150, 10)
     weight = st.slider("Weight", 0, 300, 50)
     ages = st.slider("Age", 0, 100, 1)
-    bodytempera = st.slider("Body Temp", 0, 110, 10)
     mrinumber = st.slider("MRI", 0, 3, .1)
 
     ok = st.button("Calculate Risk")
     if ok:
-        X = np.array([[ hrtrate, bloodoxy, bodytempera, weight, mrinumber, ages, educationlvl, handdom, gendr, famhistor, smoke, activity, depress, medication, diet, sleephealth]])
+        X = np.array([[ hrtrate, bloodoxy, weight, mrinumber, ages, educationlvl, handdom, gendr, famhistor, smoke, activity, depress, medication, diet, sleephealth]])
         X.iloc[:, 0] = le_heartrate.transform(X.iloc[:, 0])
         X.iloc[:, 1] = le_bloodoxygen.transform(X.iloc[:, 1])
-        X.iloc[:, 2] = le_bodytemp.transform(X.iloc[:, 2])
         X.iloc[:, 3] = le_weight.transform(X.iloc[:, 3])
         X.iloc[:, 4] = le_MRI.transform(X.iloc[:, 4])
         X.iloc[:, 5] = le_age.transform(X.iloc[:, 5])
